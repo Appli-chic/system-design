@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component
 
 @Component
 class ContentReceiver {
-    @RabbitListener(queues = ["content-queue"])
-    fun receive(message: String) {
-        println(" [x] Received '$message'")
-    }
+//    @RabbitListener(queues = ["content-queue"])
+//    fun receive(message: String) {
+//        println(" [x] Received '$message'")
+//    }
 }
