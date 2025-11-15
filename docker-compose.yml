@@ -1,0 +1,44 @@
+services:
+  springcheerz:
+    build:
+      context: ./SpringCheerz
+      dockerfile: Dockerfile
+    container_name: springcheerz
+    ports:
+      - "8081:8080"
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    networks:
+      - app-network
+    restart: unless-stopped
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+
+  ktorkustom:
+    build:
+      context: ./KtorKustom
+      dockerfile: Dockerfile
+    container_name: ktorkustom
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+    restart: unless-stopped
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  rabbitmq-data:

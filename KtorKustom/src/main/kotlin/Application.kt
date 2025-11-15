@@ -16,7 +16,7 @@ fun Application.module() {
 
 private fun Application.configureRabbitMQ() {
     install(RabbitMQ) {
-        uri = "amqp://guest:guest@localhost:5672"
+        uri = "amqp://guest:guest@rabbitmq:5672"
         defaultConnectionName = "default_connection"
         connectionAttempts = 20
         attemptDelay = 10
