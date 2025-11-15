@@ -29,9 +29,8 @@ services:
     build:
       context: ./KtorKustom
       dockerfile: Dockerfile
-    container_name: ktorkustom
     ports:
-      - "8080:8080"
+      - "8080-8083:8080"
     networks:
       - app-network
     restart: unless-stopped
