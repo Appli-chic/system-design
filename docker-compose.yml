@@ -7,8 +7,30 @@ services:
     ports:
       - "8081:8080"
     networks:
-      - app-network
+      - springcheerz-network
+      - shared-network
     restart: unless-stopped
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-springcheerz:5432/springcheerz
+      SPRING_DATASOURCE_USERNAME: springcheerz
+      SPRING_DATASOURCE_PASSWORD: springcheerz_pass
+    depends_on:
+      - postgres-springcheerz
+
+  postgres-springcheerz:
+    image: postgres:16-alpine
+    container_name: postgres-springcheerz
+    environment:
+      POSTGRES_DB: springcheerz
+      POSTGRES_USER: springcheerz
+      POSTGRES_PASSWORD: springcheerz_pass
+    ports:
+      - "5432:5432"
+    networks:
+      - springcheerz-network
+    restart: unless-stopped
+    volumes:
+      - postgres-springcheerz-data:/var/lib/postgresql/data
 
   rabbitmq:
     image: rabbitmq:3-management
@@ -20,7 +42,7 @@ services:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
     networks:
-      - app-network
+      - shared-network
     restart: unless-stopped
     volumes:
       - rabbitmq-data:/var/lib/rabbitmq
@@ -32,12 +54,40 @@ services:
     ports:
       - "8080-8083:8080"
     networks:
-      - app-network
+      - ktorkustom-network
+      - shared-network
     restart: unless-stopped
+    environment:
+      DB_URL: jdbc:postgresql://postgres-ktorkustom:5432/ktorkustom
+      DB_USER: ktorkustom
+      DB_PASSWORD: ktorkustom_pass
+    depends_on:
+      - postgres-ktorkustom
+
+  postgres-ktorkustom:
+    image: postgres:16-alpine
+    container_name: postgres-ktorkustom
+    environment:
+      POSTGRES_DB: ktorkustom
+      POSTGRES_USER: ktorkustom
+      POSTGRES_PASSWORD: ktorkustom_pass
+    ports:
+      - "5433:5432"
+    networks:
+      - ktorkustom-network
+    restart: unless-stopped
+    volumes:
+      - postgres-ktorkustom-data:/var/lib/postgresql/data
 
 networks:
-  app-network:
+  springcheerz-network:
+    driver: bridge
+  ktorkustom-network:
+    driver: bridge
+  shared-network:
     driver: bridge
 
 volumes:
   rabbitmq-data:
+  postgres-springcheerz-data:
+  postgres-ktorkustom-data:
