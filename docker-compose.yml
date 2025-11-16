@@ -47,37 +47,37 @@ services:
     volumes:
       - rabbitmq-data:/var/lib/rabbitmq
 
-  ktorkustom:
-    build:
-      context: ./KtorKustom
-      dockerfile: Dockerfile
-    ports:
-      - "8080-8083:8080"
-    networks:
-      - ktorkustom-network
-      - shared-network
-    restart: unless-stopped
-    environment:
-      DB_URL: jdbc:postgresql://postgres-ktorkustom:5432/ktorkustom
-      DB_USER: ktorkustom
-      DB_PASSWORD: ktorkustom_pass
-    depends_on:
-      - postgres-ktorkustom
-
-  postgres-ktorkustom:
-    image: postgres:16-alpine
-    container_name: postgres-ktorkustom
-    environment:
-      POSTGRES_DB: ktorkustom
-      POSTGRES_USER: ktorkustom
-      POSTGRES_PASSWORD: ktorkustom_pass
-    ports:
-      - "5433:5432"
-    networks:
-      - ktorkustom-network
-    restart: unless-stopped
-    volumes:
-      - postgres-ktorkustom-data:/var/lib/postgresql/data
+#  ktorkustom:
+#    build:
+#      context: ./KtorKustom
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8080-8083:8080"
+#    networks:
+#      - ktorkustom-network
+#      - shared-network
+#    restart: unless-stopped
+#    environment:
+#      DB_URL: jdbc:postgresql://postgres-ktorkustom:5432/ktorkustom
+#      DB_USER: ktorkustom
+#      DB_PASSWORD: ktorkustom_pass
+#    depends_on:
+#      - postgres-ktorkustom
+#
+#  postgres-ktorkustom:
+#    image: postgres:16-alpine
+#    container_name: postgres-ktorkustom
+#    environment:
+#      POSTGRES_DB: ktorkustom
+#      POSTGRES_USER: ktorkustom
+#      POSTGRES_PASSWORD: ktorkustom_pass
+#    ports:
+#      - "5433:5432"
+#    networks:
+#      - ktorkustom-network
+#    restart: unless-stopped
+#    volumes:
+#      - postgres-ktorkustom-data:/var/lib/postgresql/data
 
 networks:
   springcheerz-network:
