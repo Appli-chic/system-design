@@ -21,6 +21,12 @@ dependencies {
     implementation("io.ktor:ktor-server-config-yaml")
     implementation("io.github.damirdenis-tudor:ktor-server-rabbitmq:1.3.6")
 
+    implementation("org.jetbrains.exposed:exposed-core:0.55.0")
+    implementation("org.jetbrains.exposed:exposed-dao:0.55.0")
+    implementation("org.jetbrains.exposed:exposed-jdbc:0.55.0")
+    implementation("org.jetbrains.exposed:exposed-java-time:0.55.0")
+    implementation("org.postgresql:postgresql:42.7.4")
+
     testImplementation("io.ktor:ktor-server-test-host")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 }

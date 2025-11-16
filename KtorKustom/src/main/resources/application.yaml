@@ -5,6 +5,11 @@ ktor:
   deployment:
     port: 8080
 
+database:
+  url: jdbc:postgresql://localhost:5433/ktorkustom
+  driver: org.postgresql.Driver
+  user: ktorkustom
+  password: ktorkustom_pass
 
 rabbitmq:
   uri: amqp://guest:guest@rabbitmq:5672
