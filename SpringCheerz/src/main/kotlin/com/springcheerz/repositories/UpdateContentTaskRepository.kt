@@ -18,5 +18,15 @@ class UpdateContentTaskRepository(private val entityManager: EntityManager) {
         entityManager.persist(entity)
         return entity
     }
+
+    @Transactional
+    fun markAsCompletedByName(taskName: String) {
+        entityManager.createQuery(
+            "UPDATE UpdateContentTaskEntity t SET t.status = :status WHERE t.name = :taskName"
+        )
+            .setParameter("status", ContentTaskStatus.COMPLETED)
+            .setParameter("taskName", taskName)
+            .executeUpdate()
+    }
 }
 

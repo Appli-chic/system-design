@@ -8,4 +8,9 @@ import org.springframework.context.annotation.Configuration
 class RabbitConfig {
     @Bean
     fun contentQueue(): Queue = Queue("content-queue", true)
+
+    @Bean
+    fun responseQueue(): Queue {
+        return Queue("content-processed-queue", true) // durable queue
+    }
 }

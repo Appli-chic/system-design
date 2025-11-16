@@ -3,6 +3,7 @@ package com.springcheerz.rabbitmq
 import com.springcheerz.repositories.UpdateContentTaskRepository
 import org.springframework.amqp.core.Queue
 import org.springframework.amqp.rabbit.core.RabbitTemplate
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 import java.util.UUID
@@ -11,7 +12,7 @@ import java.util.UUID
 class ContentSender(
     private val updateContentTaskRepository: UpdateContentTaskRepository,
     private val template: RabbitTemplate,
-    private val queue: Queue,
+    @Qualifier("contentQueue") private val queue: Queue,
 ) {
     @Scheduled(fixedDelay = 1000, initialDelay = 500)
     fun send() {

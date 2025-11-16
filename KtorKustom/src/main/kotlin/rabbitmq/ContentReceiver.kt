@@ -3,7 +3,7 @@ package com.example.rabbitmq
 import com.example.repository.UpdateContentTaskRepository
 import io.github.damir.denis.tudor.ktor.server.rabbitmq.dsl.basicConsume
 import io.github.damir.denis.tudor.ktor.server.rabbitmq.dsl.rabbitmq
-import io.ktor.server.application.Application
+import io.ktor.server.application.*
 
 internal fun Application.consumeContentQueue() {
     val updateContentTaskRepository = UpdateContentTaskRepository()
@@ -18,6 +18,13 @@ internal fun Application.consumeContentQueue() {
                 println("UpdateContentTask created: ${message.body}")
                 updateContentTaskRepository.markAsCompleted(updateContentTaskId)
                 println("UpdateContentTask updated: ${message.body}")
+
+                channel.basicPublish(
+                    "",
+                    "content-processed-queue",
+                    null,
+                    message.body.toByteArray(),
+                )
             }
         }
     }
