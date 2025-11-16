@@ -6,7 +6,7 @@ ktor:
     port: 8080
 
 database:
-  url: jdbc:postgresql://localhost:5433/ktorkustom
+  url: jdbc:postgresql://postgres-ktorkustom:5432/ktorkustom
   driver: org.postgresql.Driver
   user: ktorkustom
   password: ktorkustom_pass

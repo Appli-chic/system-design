@@ -1,7 +1,7 @@
 package com.example
 
 import com.example.model.UpdateContentTaskTable
-import io.ktor.server.application.ApplicationEnvironment
+import io.ktor.server.application.*
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -20,7 +20,6 @@ object DatabaseFactory {
             password = databasePassword
         )
 
-        // Create tables if they don't exist
         transaction {
              SchemaUtils.create(UpdateContentTaskTable)
         }
